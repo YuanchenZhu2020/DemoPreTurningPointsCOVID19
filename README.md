@@ -18,6 +18,9 @@ work](https://github.com/Vicky-Zh/Tracking_and_forecasting_milepost_moments_of_C
 
 You can install it as a source code package or binary package.
 
+Binary File Download:
+<https://bhpan.buaa.edu.cn:443/link/DB80C0730C36DA9384524893CD143796>
+
 ``` r
 # install as a source code package (requires RTools)
 # install.packages("devtools")
