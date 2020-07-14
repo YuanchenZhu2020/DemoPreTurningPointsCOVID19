@@ -32,7 +32,7 @@ which must be in the formate "\%y-\%m-\%d" as a character.}
 }
 \value{
 A list contains InfectionRateVelocity, RemovedRateVelocity,
-and the final T.removed and M.removed used to calculate RemovedRateVelocity,
+and the final ST.removed and M.removed used to calculate RemovedRateVelocity,
 which may be needed in later calculation.
 }
 \description{
