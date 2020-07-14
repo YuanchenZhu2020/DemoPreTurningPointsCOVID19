@@ -18,8 +18,23 @@ work](https://github.com/Vicky-Zh/Tracking_and_forecasting_milepost_moments_of_C
 
 You can install it as a source code package or binary package.
 
-Binary File Download:
-<https://bhpan.buaa.edu.cn:443/link/DB80C0730C36DA9384524893CD143796>
+Install from source code:
+
+  - download and install RTools:
+    <https://mirrors.tuna.tsinghua.edu.cn/CRAN/bin/windows/Rtools/>
+  - install devtools in R `install.packages("devtools")`
+  - install packages in R
+    `devtools::install_github("YuanchenZhu2020/DemoPreTurningPointsCOVID19")`
+
+Install from binary file:
+
+  - Download Binary File :
+    <https://bhpan.buaa.edu.cn:443/link/DB80C0730C36DA9384524893CD143796>
+  - Get the path of this binary file `pkgfilepath`
+  - Install packages in R `install.packages(pkgfilepath, repos = NULL,
+    type = "win.binary")`
+
+<!-- end list -->
 
 ``` r
 # install as a source code package (requires RTools)
@@ -39,7 +54,8 @@ working dictionary and run the code:
 
 ``` r
 library(DemoPreTurningPointsCOVID19)
-result <- PeriodForcast("../Data of China Mainland Beyond Hubei.csv", M = 5, ST = "2020-01-29", period = 32)
+datafilepath <-"../Data of China Mainland Beyond Hubei.csv"
+result <- PeriodForcast(datafilepath, M = 5, ST = "2020-01-29", period = 32)
 #> [1] 1
 #> [1] "2020-01-29"
 #> [1] 2

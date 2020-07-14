@@ -24,7 +24,18 @@ This R package aims to implementing the computational framework in the paper *[T
 
 You can install it as a source code package or binary package.
 
-Binary File Download: https://bhpan.buaa.edu.cn:443/link/DB80C0730C36DA9384524893CD143796
+Install from source code:
+
+- download and install RTools: https://mirrors.tuna.tsinghua.edu.cn/CRAN/bin/windows/Rtools/
+- install devtools in R `install.packages("devtools")`
+- install packages in R `devtools::install_github("YuanchenZhu2020/DemoPreTurningPointsCOVID19")`
+
+
+Install from binary file:
+
+- Download Binary File : https://bhpan.buaa.edu.cn:443/link/DB80C0730C36DA9384524893CD143796
+- Get the path of this binary file `pkgfilepath`
+- Install packages in R `install.packages(pkgfilepath, repos = NULL, type = "win.binary")`
 
 
 ``` r
@@ -44,6 +55,7 @@ Put example file *Data of China Mainland Beyond Hubei.csv* to the working dictio
 
 ```{r example}
 library(DemoPreTurningPointsCOVID19)
-result <- PeriodForcast("../Data of China Mainland Beyond Hubei.csv", M = 5, ST = "2020-01-29", period = 32)
+datafilepath <-"../Data of China Mainland Beyond Hubei.csv"
+result <- PeriodForcast(datafilepath, M = 5, ST = "2020-01-29", period = 32)
 result
 ```
