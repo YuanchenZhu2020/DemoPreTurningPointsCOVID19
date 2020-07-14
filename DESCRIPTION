@@ -1,15 +1,20 @@
 Package: DemoPreTurningPointsCOVID19
-Title: What the Package Does (One Line, Title Case)
+Title: Demo of Tracking and Forecasting Milepost Moments of COVID-19
 Version: 0.0.0.9000
-Authors@R: 
-    person(given = "First",
-           family = "Last",
-           role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+Authors@R: c(
+    person("Yanwen", "Zhang", role = c("aut", "ths")),
+    person("Yuanchen", "Zhu", role = "cre", email = "yuanchenzhu@126.com")
+    )
+Description: In the paper <Tracking_and_forecasting_milepost_moments_of_the_epidemic_in_the_early_outbreak__framework_and_applications_to_the_COVID_19>, 
+  we proposed a method to predict "turning points", whose main idea is 
+  using the change velocity of infection rate (InfectionRateVelocity) and
+  the change velocity of completion rate(RemovedRateVelocity) to forcast 
+  newly diagnoses cases and number of cases treated in the hospital in the 
+  future. Here, we proposed one of the algorithms to calculate the 
+  change rate and then make the prediction, which is the method we used 
+  in our paper mentioned above. At last, we offer a simple example to 
+  implement this method.
+License: CC0
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
