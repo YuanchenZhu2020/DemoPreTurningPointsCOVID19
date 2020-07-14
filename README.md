@@ -158,7 +158,12 @@ result
 
 ## Usage
 
-FUnction List: - Iconicfun - CalculateVelocity - Prediction -
-totalPrediction - PeriodForcast
+FUnction List:
+
+  - Iconicfun
+  - CalculateVelocity
+  - Prediction
+  - totalPrediction
+  - PeriodForcast
 
 If you want to see the detailed doc, use `help(funcname)` for help.
