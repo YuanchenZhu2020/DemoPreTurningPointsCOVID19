@@ -7,7 +7,8 @@ Authors@R: c(
       comment = "Modification and refactoring of part of the code",
       email = "yuanchenzhu@126.com")
     )
-Description: In the paper <Tracking_and_forecasting_milepost_moments_of_the_epidemic_in_the_early_outbreak__framework_and_applications_to_the_COVID_19>, 
+Description: In the paper <Tracking_and_forecasting_milepost_moments_of_the_
+  epidemic_in_the_early_outbreak__framework_and_applications_to_the_COVID_19>, 
   we proposed a method to predict "turning points", whose main idea is 
   using the change velocity of infection rate (InfectionRateVelocity) and
   the change velocity of completion rate(RemovedRateVelocity) to forcast 
