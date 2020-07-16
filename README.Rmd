@@ -49,25 +49,31 @@ devtools::install_github("YuanchenZhu2020/DemoPreTurningPointsCOVID19")
 install.packages(pkgfilepath, repos = NULL, type = "win.binary")
 ```
 
-## Example
-
-Put example file *Data of China Mainland Beyond Hubei.csv* to the working dictionary and run the code:
-
-```{r example}
-library(DemoPreTurningPointsCOVID19)
-datafilepath <-"../Data of China Mainland Beyond Hubei.csv"
-result <- PeriodForcast(datafilepath, M = 5, ST = "2020-01-29", period = 32)
-result
-```
-
 ## Usage
 
 FUnction List:
 
-- Iconicfun
-- CalculateVelocity
-- Prediction
-- totalPrediction
-- PeriodForcast
+  - get_indicators
+  - calc_velocity
+  - get_future_indicators
+  - corr_removed_rate
+  - get_milepost
+  - prediction
+  - period_predict
 
-If you want to see the detailed doc, use `help(funcname)` for help.
+Dataset List:
+  - COVID19_CN
+
+If you want to see details of each function, use `help(name)`.
+
+## Example
+
+
+```{r example}
+library(DemoPreTurningPointsCOVID19)
+# single begining time
+single_result <- prediction(COVID19_CN, M = 5, Begining_Time = "2020-01-29")
+
+# multiple begining time
+period_result <- period_predict(COVID19_CN, M = 5, Begining_Time = "2020-01-29", period = 32)
+```

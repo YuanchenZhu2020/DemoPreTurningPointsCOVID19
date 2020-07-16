@@ -1,91 +1,67 @@
-#' Predict future indicators and get 3 turning points
+#' Prediciton
 #'
-#' Predict future infectionrate, removedrate, E_t, inhospitals
-#' and get T.2, Z.1 and Z.2 at the same time.
+#' Integrate functions above, and handle a special situation (removedrate > 1).
 #'
-#' @param date the exact day in the formate "%y-%m-%d" as a character.
-#' @param confirmed the daily confirmed cases at the given date.
-#' @param inhospitals The number of infectious cases in hospital.
-#' @param infectionrate The daily infection rate.
-#' @param removedrate the daily removed rate.
-#' @param InfectionRateVelocity the velocity of infection rate change.
-#' @param RemovedRateVelocity the velocity of complerion rate change.
-#' @param ST the selection of begining time,
+#' @param RawData dataframe with data and four ordered variables, i.e.
+#' - the day t,
+#' - the cumulative confirmed cases up to the given day t,
+#' - the daily confirmed cases at day t,
+#' - the daily recovered ones at day t,
+#' - the daily deaths at day t.
+#' @param M the selection of time window.
+#' @param Begining_Time the selection of begining time,
 #' which must be in the formate "%y-%m-%d" as a character.
 #'
-#' @return A dataframe contains prediction result of removedrate, inhospitals,
-#' and T.2, Z.1, Z.2.
+#' @return List contains important info. in the calculation:
+#' - indicators: the iconic indicators generated from real data.
+#' - Begining_Time: Hyper Param. the selection of begining time,
+#' which must be in the formate "%y-%m-%d" as a character.
+#' - M: Hyper Param. the selection of time window.
+#' - velocity: A list contains 4 elements:
+#'   * infection_rate_velocity: the velocity of K.
+#'   * removed_rate_velocity: the velocity of I.
+#'   * corr.infection: vvector of corrected M_K and T_K.
+#'   * corr.removed: vector of corrected M_I and T_I.
+#' - pre_indicators: dataframe with 4 future indicators:
+#'   * date: the exact day in the formate "%y-%m-%d" as a character
+#'   * infection_rate.pre: prediction result of infection rate
+#'   * removed_rate.pre: prediction result of removed_rate
+#'   * inhospitals.pre: prediction result of inhospitals
+#'   * confirmed.pre: prediction result of confirmed cases
+#' - mileposts: dataframe contains 4 milepost T.1, T.2, Z.1, Z.2,
+#' which must be in the formate "%y-%m-%d" as a character.
 #' @export
 #'
-#' @examples
-Prediction <- function(date, confirmed, inhospitals, infectionrate, removedrate, InfectionRateVelocity, RemovedRateVelocity, ST) {
-  f <- data.frame(date = date,
-                  confirmed = confirmed,
-                  inhospitals = inhospitals,
-                  infectionrate = infectionrate,
-                  removedrate = removedrate)
-  f$date <- as.Date(f$date)
+#' @examples Begining_Time = "2020-01-29"
+#' M <- 5
+#' result <- prediction(COVID19_CN, M, Begining_Time)
+prediction <- function(RawData, M, Begining_Time) {
+  # Get indicators from raw data,
+  # and then use indicators to calculate velocity.
+  # After that, use indicators and velocity to generate future indicators.
+  indicators <- DemoPreTurningPointsCOVID19::get_indicators(RawData)
+  velocity <- DemoPreTurningPointsCOVID19::calc_velocity(indicators, M, Begining_Time)
+  pre_data <- DemoPreTurningPointsCOVID19::get_future_indicators(indicators, velocity, Begining_Time)
 
-  ST.infection <- which(f$date == ST)
+  # correct M_I and T_I to avoid removed_rate > 1, which is counterintuitive.
+  new_velocity <- DemoPreTurningPointsCOVID19::corr_removed_rate(velocity, indicators, pre_data, M, Begining_Time)
 
-  infectionrate.0 <- f$infectionrate[ST.infection]
-  removedrate.0 <- f$removedrate[ST.infection]
-  confirmed.0 <- f$confirmed[ST.infection]
-  inhospitals.0 <- f$inhospitals[ST.infection]
-
-  infectionrate.pre <- c(infectionrate.0)
-  removedrate.pre <- c(removedrate.0)
-  confirmed.pre <- c(confirmed.0)
-  inhospitals.pre <- c(inhospitals.0)
-
-  t <- 1
-
-  # to predict the first zero point Z.1.
-  while (confirmed.pre[t] > 1) {
-    t <- t + 1
-
-    infectionrate <- infectionrate.pre[t - 1] * InfectionRateVelocity
-    removedrate <- removedrate.pre[t - 1] * RemovedRateVelocity
-    R_t <- 1 + infectionrate - removedrate
-    inhospitals <- inhospitals.pre[t - 1] * R_t
-    E_t <- inhospitals.pre[t - 1] * infectionrate
-
-    infectionrate.pre <- c(infectionrate.pre, infectionrate)
-    removedrate.pre <- c(removedrate.pre, removedrate)
-    confirmed.pre <- c(confirmed.pre, E_t)
-    inhospitals.pre <- c(inhospitals.pre, inhospitals)
+  # if it has gone through correction process, then reproduce the future indicators.
+  if (new_velocity$corr.removed[1] != velocity$corr.removed[1]
+      | new_velocity$corr.removed[2] != velocity$corr.removed[2]) {
+    pre_data <- DemoPreTurningPointsCOVID19::get_future_indicators(indicators, new_velocity, Begining_Time)
   }
 
-  Z.1 <- as.Date(ST) + t - 1
+  # use future indicators to calculate 4 milepost moments.
+  mileposts <- get_milepost(pre_data, Begining_Time = Begining_Time)
 
-  # to predict the second zero point Z.2.
-  while (inhospitals.pre[t] > 1 ) {
-    t <- t + 1
+  # return result which contains all import information in the calculation.
+  result <- list("indicators" = indicators,
+                 "Begining_Time" = Begining_Time,
+                 "M" = M,
+                 "velocity" = new_velocity,
+                 "pre_indicators" = pre_data,
+                 "mileposts" = mileposts)
 
-    infectionrate <- infectionrate.pre[t - 1] * InfectionRateVelocity
-    removedrate <- removedrate.pre[t - 1] * RemovedRateVelocity
-    R_t <- 1 + infectionrate - removedrate
-    inhospitals <- inhospitals.pre[t - 1] * R_t
-
-    infectionrate.pre <- c(infectionrate.pre, infectionrate)
-    removedrate.pre <- c(removedrate.pre, removedrate)
-    inhospitals.pre <- c(inhospitals.pre, inhospitals)
-  }
-
-  Z.2 <- as.Date(ST) + t - 1
-
-  # After prediction process, we can get the second turing point.
-  # If T.2 have already gone, we stop predicting it.
-  if (which.max(inhospitals.pre) > 1) {
-    T.2 <- as.Date(ST) + which.max(inhospitals.pre) - 1
-  }else {
-    T.2 <- NA
-  }
-
-  prediction <- data.frame("removedrate.pre" = removedrate.pre,
-                           "inhospitals.pre" = inhospitals.pre,
-                           "T.2" = T.2,
-                           "Z.1" = Z.1,
-                           "Z.2" = Z.2)
-  return(prediction)
+  return(result)
 }

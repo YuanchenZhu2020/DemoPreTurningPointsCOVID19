@@ -1,9 +1,11 @@
 Package: DemoPreTurningPointsCOVID19
 Title: Demo of Tracking and Forecasting Milepost Moments of COVID-19
-Version: 0.0.0.9000
+Version: 0.0.1.0000
 Authors@R: c(
     person("Yanwen", "Zhang", role = c("aut", "ths")),
-    person("Yuanchen", "Zhu", role = "cre", email = "yuanchenzhu@126.com")
+    person("Yuanchen", "Zhu", role = c("ctb", "cre"), 
+      comment = "Modification and refactoring of part of the code",
+      email = "yuanchenzhu@126.com")
     )
 Description: In the paper <Tracking_and_forecasting_milepost_moments_of_the_epidemic_in_the_early_outbreak__framework_and_applications_to_the_COVID_19>, 
   we proposed a method to predict "turning points", whose main idea is 
@@ -21,3 +23,5 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports: 
     utils
+Depends: 
+    R (>= 2.10)
