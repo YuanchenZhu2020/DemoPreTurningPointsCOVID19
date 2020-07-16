@@ -59,7 +59,9 @@ FUnction List:
   - prediction
   - period\_predict
 
-Dataset List: - COVID19\_CN
+Dataset List:
+
+  - COVID19\_CN
 
 If you want to see details of each function, use `help(name)`.
 
