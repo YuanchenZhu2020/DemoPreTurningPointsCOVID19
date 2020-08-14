@@ -7,7 +7,7 @@
 get_indicators(RawData)
 }
 \arguments{
-\item{RawData}{dataframe with data and four ordered variables, i.e.
+\item{RawData}{dataframe with data and 5 ordered variables, i.e.
 \itemize{
 \item the day t,
 \item the cumulative confirmed cases up to the given day t,
@@ -24,7 +24,7 @@ dataframe with variables:
 \item recovered: the daily recovered cases at the given date
 \item deaths: the daily deaths at the given daten
 \item cum_confirmed: the cumulative confirmed cases
-\item inhospitals: The number of infectious cases in hospital
+\item active_cases: The number of infectious cases in hospital
 \item infection_rate: The daily infection rate
 \item removed_rate: the daily removed rate
 }

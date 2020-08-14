@@ -1,6 +1,6 @@
 Package: DemoPreTurningPointsCOVID19
 Title: Demo of Tracking and Forecasting Milepost Moments of COVID-19
-Version: 0.0.1.0000
+Version: 0.0.2.0000
 Authors@R: c(
     person("Yanwen", "Zhang", role = c("aut", "ths")),
     person("Yuanchen", "Zhu", role = c("ctb", "cre"), 

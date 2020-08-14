@@ -4,7 +4,7 @@
 \alias{calc_velocity}
 \title{Compute the velocity of K and I}
 \usage{
-calc_velocity(indicators, M, Begining_Time)
+calc_velocity(indicators, M, Beginning_Time)
 }
 \arguments{
 \item{indicators}{dataframe that stores indicators calculate by get_indicators():
@@ -14,14 +14,14 @@ calc_velocity(indicators, M, Begining_Time)
 \item recovered: the daily recovered cases at the given date
 \item deaths: the daily deaths at the given daten
 \item cum_confirmed: the cumulative confirmed cases
-\item inhospitals: The number of infectious cases in hospital
+\item active_cases: The number of infectious cases in hospital
 \item infection_rate: The daily infection rate
 \item removed_rate: the daily removed rate
 }}
 
 \item{M}{the selection of time window.}
 
-\item{Begining_Time}{the selection of begining time,
+\item{Beginning_Time}{the selection of beginning time,
 which must be in the formate "\%y-\%m-\%d" as a character.}
 }
 \value{
@@ -39,8 +39,8 @@ the above 2 indicators which may be needed in later calculation.
 Compute the velocity of infection rate K change and completion rate I change.
 }
 \examples{
-Begining_Time <- "2020-01-29"
+Beginning_Time <- "2020-01-29"
 M <- 5
 indicators <- get_indicators(DemoPreTurningPointsCOVID19::COVID19_CN)
-velocity <- calc_velocity(indicators, M, Begining_Time)
+velocity <- calc_velocity(indicators, M, Beginning_Time)
 }

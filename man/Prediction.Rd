@@ -4,7 +4,7 @@
 \alias{prediction}
 \title{Prediciton}
 \usage{
-prediction(RawData, M, Begining_Time)
+prediction(RawData, M, Beginning_Time)
 }
 \arguments{
 \item{RawData}{dataframe with data and four ordered variables, i.e.
@@ -18,16 +18,16 @@ prediction(RawData, M, Begining_Time)
 
 \item{M}{the selection of time window.}
 
-\item{Begining_Time}{the selection of begining time,
+\item{Beginning_Time}{the selection of beginning time,
 which must be in the formate "\%y-\%m-\%d" as a character.}
 }
 \value{
 List contains important info. in the calculation:
 \itemize{
-\item indicators: the iconic indicators generated from real data.
-\item Begining_Time: Hyper Param. the selection of begining time,
+\item Beginning_Time: Hyper Param. the selection of beginning time,
 which must be in the formate "\%y-\%m-\%d" as a character.
 \item M: Hyper Param. the selection of time window.
+\item indicators: the iconic indicators generated from real data.
 \item velocity: A list contains 4 elements:
 \itemize{
 \item infection_rate_velocity: the velocity of K.
@@ -40,7 +40,7 @@ which must be in the formate "\%y-\%m-\%d" as a character.
 \item date: the exact day in the formate "\%y-\%m-\%d" as a character
 \item infection_rate.pre: prediction result of infection rate
 \item removed_rate.pre: prediction result of removed_rate
-\item inhospitals.pre: prediction result of inhospitals
+\item active_cases.pre: prediction result of active_cases
 \item confirmed.pre: prediction result of confirmed cases
 }
 \item mileposts: dataframe contains 4 milepost T.1, T.2, Z.1, Z.2,
@@ -51,7 +51,7 @@ which must be in the formate "\%y-\%m-\%d" as a character.
 Integrate functions above, and handle a special situation (removedrate > 1).
 }
 \examples{
-Begining_Time = "2020-01-29"
+Beginning_Time = "2020-01-29"
 M <- 5
-result <- prediction(COVID19_CN, M, Begining_Time)
+result <- prediction(COVID19_CN, M, Beginning_Time)
 }

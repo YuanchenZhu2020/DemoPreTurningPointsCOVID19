@@ -4,7 +4,7 @@
 \alias{corr_removed_rate}
 \title{Correct removed rate}
 \usage{
-corr_removed_rate(velocity, indicators, pre_data, M, Begining_Time)
+corr_removed_rate(velocity, indicators, pre_data, M, Beginning_Time)
 }
 \arguments{
 \item{velocity}{A list contains 4 elements:
@@ -22,7 +22,7 @@ corr_removed_rate(velocity, indicators, pre_data, M, Begining_Time)
 \item recovered: the daily recovered cases at the given date
 \item deaths: the daily deaths at the given daten
 \item cum_confirmed: the cumulative confirmed cases
-\item inhospitals: The number of infectious cases in hospital
+\item active_cases: The number of infectious cases in hospital
 \item infection_rate: The daily infection rate
 \item removed_rate: the daily removed rate
 }}
@@ -32,14 +32,14 @@ corr_removed_rate(velocity, indicators, pre_data, M, Begining_Time)
 \item date: the exact day in the formate "\%y-\%m-\%d" as a character
 \item infection_rate.pre: prediction result of infection rate
 \item removed_rate.pre: prediction result of removed_rate
-\item inhospitals.pre: prediction result of inhospitals
+\item active_cases.pre: prediction result of active_cases
 \item confirmed.pre: prediction result of confirmed cases
-All of these data is calculated from the Begining_Time.
+All of these data is calculated from the Beginning_Time.
 }}
 
 \item{M}{the selection of time window.}
 
-\item{Begining_Time}{the selection of begining time,
+\item{Beginning_Time}{the selection of beginning time,
 which must be in the formate "\%y-\%m-\%d" as a character.}
 }
 \value{
@@ -55,13 +55,13 @@ the above 2 indicators which may be needed in later calculation.
 }
 \description{
 if future removed_rate is larger than 1, than correct T and M
-to make removed_rate less than 1.
+to make removed_rate less than 1 and update the velocity.
 }
 \examples{
-Begining_Time <- "2020-01-29"
+Beginning_Time <- "2020-01-29"
 M <- 5
 indicators <- get_indicators(DemoPreTurningPointsCOVID19::COVID19_CN)
-velocity <- calc_velocity(indicators, M, Begining_Time)
-pre_data <- get_future_indicators(indicators, velocity, Begining_Time)
-new_velocity <- corr_removed_rate(velocity, indicators, pre_data, M, Begining_Time)
+velocity <- calc_velocity(indicators, M, Beginning_Time)
+pre_data <- get_future_indicators(indicators, velocity, Beginning_Time)
+new_velocity <- corr_removed_rate(velocity, indicators, pre_data, M, Beginning_Time)
 }

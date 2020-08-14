@@ -8,11 +8,11 @@
 #' - recovered: the daily recovered cases at the given date
 #' - deaths: the daily deaths at the given daten
 #' - cum_confirmed: the cumulative confirmed cases
-#' - inhospitals: The number of infectious cases in hospital
+#' - active_cases: The number of infectious cases in hospital
 #' - infection_rate: The daily infection rate
 #' - removed_rate: the daily removed rate
 #' @param M the selection of time window.
-#' @param Begining_Time the selection of begining time,
+#' @param Beginning_Time the selection of beginning time,
 #' which must be in the formate "%y-%m-%d" as a character.
 #'
 #' @return A list contains 4 elements:
@@ -24,16 +24,16 @@
 #' the above 2 indicators which may be needed in later calculation.
 #' @export
 #'
-#' @examples Begining_Time <- "2020-01-29"
+#' @examples Beginning_Time <- "2020-01-29"
 #' M <- 5
 #' indicators <- get_indicators(DemoPreTurningPointsCOVID19::COVID19_CN)
-#' velocity <- calc_velocity(indicators, M, Begining_Time)
-calc_velocity <- function(indicators, M, Begining_Time) {
+#' velocity <- calc_velocity(indicators, M, Beginning_Time)
+calc_velocity <- function(indicators, M, Beginning_Time) {
 
-  # to initialize the t and m for real calculation and correction
-  # get the index of Begining_Time in indicators$date storing in T_#_ind
+  # to initialize the t and m for two corrections later
+  # get the index of Beginning_Time in indicators$date storing in T_#_ind
   # store M in M_# for later corrections.
-  T_K_ind <- which(indicators$date == Begining_Time)
+  T_K_ind <- which(indicators$date == Beginning_Time)
   T_I_ind <- T_K_ind
   M_K <- M
   M_I <- M
@@ -45,7 +45,7 @@ calc_velocity <- function(indicators, M, Begining_Time) {
          | indicators$infection_rate[T_K_ind - M_K + 1] == 0) {
     # First, reduce time window M until M = 0
     # If M <= 1 and V_K < 1 is still not met,
-    # recover M and move forward the Begining_Time until it is less than 0.
+    # recover M and move forward the Beginning_Time until it is less than 0.
     M_K <- M_K - 1
     if (M_K > 1) {
       next

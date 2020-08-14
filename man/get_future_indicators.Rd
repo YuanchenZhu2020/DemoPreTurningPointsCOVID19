@@ -2,9 +2,9 @@
 % Please edit documentation in R/get_future_indicators.R
 \name{get_future_indicators}
 \alias{get_future_indicators}
-\title{Predict future indicators}
+\title{Get future indicators}
 \usage{
-get_future_indicators(indicators, velocity, Begining_Time)
+get_future_indicators(indicators, velocity, Beginning_Time)
 }
 \arguments{
 \item{indicators}{dataframe that stores indicators calculate by get_indicators():
@@ -14,7 +14,7 @@ get_future_indicators(indicators, velocity, Begining_Time)
 \item recovered: the daily recovered cases at the given date
 \item deaths: the daily deaths at the given daten
 \item cum_confirmed: the cumulative confirmed cases
-\item inhospitals: The number of infectious cases in hospital
+\item active_cases: The number of infectious cases in hospital
 \item infection_rate: The daily infection rate
 \item removed_rate: the daily removed rate
 }}
@@ -23,7 +23,7 @@ get_future_indicators(indicators, velocity, Begining_Time)
 and 2 corrected vector c(T, M) used to calculate the above 2 indicators
 which may be needed in later calculation.}
 
-\item{Begining_Time}{the selection of begining time,
+\item{Beginning_Time}{the selection of beginning time,
 which must be in the formate "\%y-\%m-\%d" as a character.}
 }
 \value{
@@ -32,18 +32,18 @@ dataframe with 4 predicted indicators:
 \item date: the exact day in the formate "\%y-\%m-\%d" as a character
 \item infection_rate.pre: prediction result of infection rate
 \item removed_rate.pre: prediction result of removed_rate
-\item inhospitals.pre: prediction result of inhospitals
+\item active_cases.pre: prediction result of active_cases
 \item confirmed.pre: prediction result of confirmed cases
-All of these data is calculated from the Begining_Time.
+All of these data is calculated from the Beginning_Time.
 }
 }
 \description{
-Predict future infection_rate, removed_rate, inhospitals and confirmed cases.
+Get future infection_rate, removed_rate, active_cases and confirmed cases.
 }
 \examples{
-Begining_Time <- "2020-01-29"
+Beginning_Time <- "2020-01-29"
 M <- 5
 indicators <- get_indicators(DemoPreTurningPointsCOVID19::COVID19_CN)
-velocity <- calc_velocity(indicators, M, Begining_Time)
-pre_data <- get_future_indicators(indicators, velocity, Begining_Time)
+velocity <- calc_velocity(indicators, M, Beginning_Time)
+pre_data <- get_future_indicators(indicators, velocity, Beginning_Time)
 }
