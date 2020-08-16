@@ -22,36 +22,37 @@ This R package aims to implementing the computational framework in the paper *[T
 
 ## Installation
 
-You can install it as a source code package or binary package.
+You can install it as a binary package or source package.
+
+Install from binary:
+
+- Download Binary File **DemoPreTurningPointsCOVID19_1.0.0.zip
+** from https://github.com/YuanchenZhu2020/DemoPreTurningPointsCOVID19/releases/tag/Version_1.0.0
+- Get the path of this binary file: `pkgfilepath`
+- Install packages in R: `install.packages(pkgfilepath, repos = NULL)`
+
 
 Install from source code:
 
-- download and install RTools: https://mirrors.tuna.tsinghua.edu.cn/CRAN/bin/windows/Rtools/
-- install devtools in R `install.packages("devtools")`
+- download and install **RTools**. (Mirrors:  https://mirrors.tuna.tsinghua.edu.cn/CRAN/bin/windows/Rtools/)
+- install **devtools** in R `install.packages("devtools")`
 - install packages in R `devtools::install_github("YuanchenZhu2020/DemoPreTurningPointsCOVID19")`
 
 
-Install from binary file:
-
-- Download Binary File : https://bhpan.buaa.edu.cn:443/link/DB80C0730C36DA9384524893CD143796
-- Get the path of this binary file `pkgfilepath`
-- Install packages in R `install.packages(pkgfilepath, repos = NULL, type = "win.binary")`
-
-
 ``` r
-# install as a source code package (requires RTools)
-# install.packages("devtools")
-devtools::install_github("YuanchenZhu2020/DemoPreTurningPointsCOVID19")
-
 # install as a binary package.
 # 1. download binary package to your PC
 # 2. get the path of package file
-install.packages(pkgfilepath, repos = NULL, type = "win.binary")
+install.packages(pkgfilepath, repos = NULL)
+
+# install as a source code package (requires RTools)
+# install.packages("devtools")
+devtools::install_github("YuanchenZhu2020/DemoPreTurningPointsCOVID19")
 ```
 
 ## Usage
 
-FUnction List:
+Function List:
 
   - get_indicators
   - calc_velocity
@@ -60,12 +61,13 @@ FUnction List:
   - get_milepost
   - prediction
   - period_predict
+  - prediction
 
 Dataset List:
 
   - COVID19_CN
 
-If you want to see details of each function, use `help(name)`.
+If you want to see details of each function or dataset, use `help(name)`. Or you can download the [referance manual](https://github.com/YuanchenZhu2020/DemoPreTurningPointsCOVID19/releases/tag/Version_1.0.0).
 
 ## Example
 
@@ -73,8 +75,8 @@ If you want to see details of each function, use `help(name)`.
 ```{r example}
 library(DemoPreTurningPointsCOVID19)
 # single begining time
-single_result <- prediction(COVID19_CN, M = 5, Begining_Time = "2020-01-29")
+single_result <- prediction(COVID19_CN, M = 5, Beginning_Time = "2020-01-29")
 
 # multiple begining time
-period_result <- period_predict(COVID19_CN, M = 5, Begining_Time = "2020-01-29", period = 32)
+period_result <- period_predict(COVID19_CN, M = 5, Beginning_Time = "2020-01-29", period = 32)
 ```
